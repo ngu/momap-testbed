@@ -1,0 +1,12 @@
+# maven build
+target/
+target-ide/
+
+# secrets, e.g. credentials
+.env
+
+# npm
+node_modules/
+
+# vite
+dist/

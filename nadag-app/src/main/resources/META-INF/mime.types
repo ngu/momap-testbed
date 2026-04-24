@@ -1,0 +1,16 @@
+# Custom MIME mappings loaded by MimetypesFileTypeMap
+text/html html
+text/css css
+text/plain txt
+application/javascript js mjs
+application/json json map
+image/svg+xml svg
+image/png png
+image/jpeg jpg jpeg
+image/gif gif
+font/woff woff
+font/woff2 woff2
+font/ttf ttf
+font/otf otf
+image/webp webp
+image/x-icon ico
