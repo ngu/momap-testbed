@@ -1,4 +1,4 @@
-package imr.hi.nadag.search;
+package imr.hi.nadag;
 
 import imr.hi.mareano.database.Database;
 import java.sql.Connection;
@@ -34,7 +34,7 @@ public final class NadagRepository {
         }
 
         String sql = """
-            SELECT lokalid, prosjektnr, prosjektnavn
+            SELECT lokalid, prosjektnr, prosjektnavn, ST_AsGeoJSON(omrade) AS omrade_geojson
             FROM grunnundersokelser.geotekniskunders
             WHERE %s
             ORDER BY prosjektnavn
@@ -53,7 +53,8 @@ public final class NadagRepository {
                     projects.add(new NadagProject(
                         rs.getString("lokalid"),
                         rs.getString("prosjektnr"),
-                        rs.getString("prosjektnavn")
+                        rs.getString("prosjektnavn"),
+                        rs.getString("omrade_geojson")
                     ));
                 }
                 return projects;

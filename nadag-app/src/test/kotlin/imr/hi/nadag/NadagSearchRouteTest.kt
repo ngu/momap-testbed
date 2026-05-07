@@ -1,4 +1,4 @@
-package imr.hi.nadag.search
+package imr.hi.nadag
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import imr.hi.nadag.withTestApplication
@@ -16,13 +16,15 @@ class NadagSearchRouteTest : FunSpec({
         test("search prosjekt=Gk00517 returns expected project row from search route")
             .config(enabled = !System.getenv("NADAG_DB_URL").isNullOrBlank()) {
             withTestApplication {
-                val response = client.get("api/nadag/search?prosjekt=${NadagSearchTest.sampleNadagProject.prosjektnavn()}")
+                val response = client.get("api/nadag/search?prosjekt=${NadagRepositoryTest.sampleNadagProject.prosjektnavn()}")
                 
                 response.status shouldBe HttpStatusCode.OK
                 
                 val listType = jsonMapper.typeFactory.constructCollectionType(List::class.java, NadagProject::class.java)
                 val projects: List<NadagProject> = jsonMapper.readValue(response.bodyAsText(), listType)
-                projects.shouldContain(NadagSearchTest.sampleNadagProject)
+                val matchingProject = NadagRepositoryTest.findNadagProject(projects, NadagRepositoryTest.sampleNadagProject)
+                (matchingProject != null) shouldBe true
+                (matchingProject?.omradeGeoJson() != null) shouldBe true
             }
         }
     }

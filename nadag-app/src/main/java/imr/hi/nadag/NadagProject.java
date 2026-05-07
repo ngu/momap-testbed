@@ -1,8 +1,9 @@
-package imr.hi.nadag.search;
+package imr.hi.nadag;
 
 public record NadagProject(
     String lokalid,
     String prosjektnr,
-    String prosjektnavn
+    String prosjektnavn,
+    String omradeGeoJson
 ) {
 }
