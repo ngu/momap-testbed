@@ -2,24 +2,24 @@ import type {
 	FrontendContribution,
 	FrontendHostApi,
 } from "../../../../../mareano-frontend/src/extensions/frontendExtensionsRegistry";
-import { NADAG_MENU_ID } from "./shared";
+import { LOCATION_SEARCH_ACTIVITY_ID, LOCATION_SEARCH_TOOL_ID } from "./geojson";
 
 const searchIconPath =
 	"M229.66,218.34,179.28,168a92.12,92.12,0,1,0-11.31,11.31l50.38,50.35a8,8,0,0,0,11.31-11.32ZM44,108a64,64,0,1,1,64,64A64.07,64.07,0,0,1,44,108Z";
 
-export function createNadagSearchRightMenuToolContribution({
+export function createLocationSearchRightMenuToolContribution({
 	React,
 	useRightMenuActivity,
 }: FrontendHostApi): FrontendContribution {
 	return {
-		id: NADAG_MENU_ID,
+		id: LOCATION_SEARCH_TOOL_ID,
 		purpose: "right-menu-tool",
 		meta: {
-			name: "Search",
+			name: "Location search",
 		},
 		factory: () => {
-			return function NadagSearchToolButton() {
-				const { isActive: isOpen, toggle } = useRightMenuActivity(NADAG_MENU_ID);
+			return function LocationSearchToolButton() {
+				const { isActive: isOpen, toggle } = useRightMenuActivity(LOCATION_SEARCH_ACTIVITY_ID);
 
 				const icon = React.createElement(
 					"svg",
@@ -40,8 +40,8 @@ export function createNadagSearchRightMenuToolContribution({
 					{
 						type: "button",
 						onClick: toggle,
-						title: "Search",
-						"aria-label": isOpen ? "Close search" : "Open search",
+						title: "Location search",
+						"aria-label": isOpen ? "Close Location search" : "Open Location search",
 						"aria-expanded": isOpen,
 						className: [
 							"flex h-13 w-13 cursor-pointer items-center justify-center rounded-full border-none",

@@ -4,10 +4,10 @@ import type {
 } from "../../../../../mareano-frontend/src/extensions/frontendExtensionsRegistry";
 import { dispatchMapNavigateEvent } from "../../../../../mareano-frontend/src/extensions/mapNavigateEvent";
 import {
-	NADAG_MENU_ID,
+  LOCATION_SEARCH_ACTIVITY_ID,
 	type GeoJsonFeature,
 	type GeoJsonFeatureCollection,
-} from "./shared";
+} from "./geojson";
 
 function getFeatureTitle(feature: GeoJsonFeature, index: number): string {
 	const properties = feature.properties;
@@ -30,18 +30,17 @@ function getFeatureTitle(feature: GeoJsonFeature, index: number): string {
 	return `Feature ${index + 1}`;
 }
 
-export function createNadagSearchRightMenuActivityContribution({
-	React,
-	useRightMenuActivity,
+export function createLocationSearchRightMenuActivityContribution({
+	React
 }: FrontendHostApi): FrontendContribution {
 	return {
-		id: NADAG_MENU_ID,
+		id: LOCATION_SEARCH_ACTIVITY_ID,
 		purpose: "right-menu-activity",
 		meta: {
 			name: "Search",
 		},
 		factory: () => {
-			return function NadagSearchActivity() {
+			return function LocationSearchActivity() {
 				const [query, setQuery] = React.useState("");
 				const [isLoading, setIsLoading] = React.useState(false);
 				const [isSelecting, setIsSelecting] = React.useState(false);
@@ -99,7 +98,7 @@ export function createNadagSearchRightMenuActivityContribution({
 
 						dispatchMapNavigateEvent({
 							geoJson: feature as unknown as Record<string, unknown>,
-							zoom: { max: 13 },
+							zoom: { max: 15 },
 							durationMs: 300,
 							padding: [48, 48, 48, 48],
 						});
@@ -120,9 +119,9 @@ export function createNadagSearchRightMenuActivityContribution({
 					React.createElement(
 						"form",
 						{ onSubmit, className: "flex flex-col gap-2" },
-						React.createElement("label", { htmlFor: "nadag-search-input" }, "Search"),
+						React.createElement("label", { htmlFor: "location-search-input" }, "Search"),
 						React.createElement("input", {
-							id: "nadag-search-input",
+							id: "location-search-input",
 							type: "text",
 							value: query,
 							placeholder: "Search term",
