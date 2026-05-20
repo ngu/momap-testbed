@@ -1,4 +1,4 @@
-package imr.hi.nadag;
+package no.ngu.nadag;
 
 public record NadagProject(
     String lokalid,

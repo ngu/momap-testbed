@@ -13,9 +13,10 @@ import imr.hi.mareano.extensions.RouteContribution
 import imr.hi.mareano.frontend.FrontendContribution
 import imr.hi.mareano.frontend.FrontendModuleScript
 import imr.hi.nadag.config.NadagConfigFactory
-import imr.hi.nadag.NadagRepository
-import imr.hi.nadag.NadagService
+// import no.ngu.nadag.NadagRepository
+// import no.ngu.nadag.NadagService
 import imr.hi.search.LocationSearchService
+import imr.hi.nadag.NadagLocationSearchProvider
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
@@ -36,24 +37,24 @@ class NadagAppExtension : AppExtension {
     override val id: String = "nadag"
 
     override fun contributions(context: AppContext): List<Contribution<*>> {
-        val nadagConfig = NadagConfigFactory.create(context.appConfig.environment)
-        val nadagDatabase = Database(
-            DatabaseConfig(
-                jdbcUrl = nadagConfig.db.url,
-                maximumPoolSize = 5,
-            ),
-        )
-        val nadagService = NadagService(NadagRepository(nadagDatabase))
+        // val nadagConfig = NadagConfigFactory.create(context.appConfig.environment)
+        // val nadagDatabase = Database(
+        //     DatabaseConfig(
+        //         jdbcUrl = nadagConfig.db.url,
+        //         maximumPoolSize = 5,
+        //     ),
+        // )
+        // val nadagService = NadagService(NadagRepository(nadagDatabase))
         val locationSearchService = LocationSearchService(
             StedsnavnLocationServiceProvider(),
             AdresserLocationServiceProvider(),
-            nadagService,
+            // NadagLocationSearchProvider(nadagService),
         )
 
         return listOf(
-            Contribution(RouteContribution::class, NadagApiRoutes(nadagService, locationSearchService)),
+            Contribution(RouteContribution::class, ApiRoutes(locationSearchService)),
             Contribution(FrontendContribution::class, NadagFrontendScripts()),
-            Contribution(LifecycleContribution::class, NadagLifecycle(nadagDatabase)),
+            // Contribution(LifecycleContribution::class, NadagLifecycle(nadagDatabase)),
         )
     }
 }
@@ -67,8 +68,8 @@ private class NadagFrontendScripts : FrontendContribution {
     )
 }
 
-private class NadagApiRoutes(
-    private val nadagService: NadagService,
+private class ApiRoutes(
+    // private val nadagService: NadagService,
     private val locationSearchService: LocationSearchService,
 ) : RouteContribution {
 
@@ -80,23 +81,23 @@ private class NadagApiRoutes(
         route: Route,
         context: AppContext,
     ) {
-        route.route("api/nadag") {
-            get("search") {
-                val projectSearch = call.request.queryParameters["prosjekt"]
-                if (projectSearch.isNullOrBlank()) {
-                    call.respond(
-                        HttpStatusCode.BadRequest,
-                        "At least one query parameter is required: 'prosjekt' (project name or number)",
-                    )
-                    return@get
-                }
-                val result = nadagService.byProsjektnavnOrProsjektnr(projectSearch.trim(), projectSearch.trim())
-                call.respondText(
-                    jsonMapper.writeValueAsString(result),
-                    ContentType.Application.Json,
-                )
-            }
-        }
+        // route.route("api/nadag") {
+        //     get("search") {
+        //         val projectSearch = call.request.queryParameters["prosjekt"]
+        //         if (projectSearch.isNullOrBlank()) {
+        //             call.respond(
+        //                 HttpStatusCode.BadRequest,
+        //                 "At least one query parameter is required: 'prosjekt' (project name or number)",
+        //             )
+        //             return@get
+        //         }
+        //         val result = nadagService.byProsjektnavnOrProsjektnr(projectSearch.trim(), projectSearch.trim())
+        //         call.respondText(
+        //             jsonMapper.writeValueAsString(result),
+        //             ContentType.Application.Json,
+        //         )
+        //     }
+        // }
 
         route.route("api") {
             get("location-search") {

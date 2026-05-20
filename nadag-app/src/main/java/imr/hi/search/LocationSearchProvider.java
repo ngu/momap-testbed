@@ -11,8 +11,7 @@ public interface LocationSearchProvider {
   Geojson.FeatureCollection search(String q);
 
   public static String titleOf(Map<String, ? super String> properties, String... titleProperties) {
-        String title = List.of(titleProperties)
-        .stream()
+    String title = List.of(titleProperties).stream()
         .map(prop -> properties.get(prop))
         .filter(Objects::nonNull)
         .map(Object::toString)

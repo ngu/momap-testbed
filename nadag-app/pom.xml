@@ -52,6 +52,11 @@
             <artifactId>kartverket-sok-adapter</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>no.ngu</groupId>
+            <artifactId>nadag-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>

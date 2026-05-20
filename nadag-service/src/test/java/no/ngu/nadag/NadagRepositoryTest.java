@@ -1,4 +1,4 @@
-package imr.hi.nadag;
+package no.ngu.nadag;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -23,7 +23,7 @@ public class NadagRepositoryTest {
     }).findFirst().orElse(null);
   }
 
-  public static Database createNadagDatabase() {
+  static Database createNadagDatabase() {
     String jdbcUrl = System.getenv("NADAG_DB_URL");
     assumeTrue(jdbcUrl != null && !jdbcUrl.isBlank(), "NADAG_DB_URL is not set");
 
@@ -41,7 +41,9 @@ public class NadagRepositoryTest {
 
   @AfterAll
   static void teardown() {
-    database.close();
+    if (database != null) {
+      database.close();
+    }
   }
 
   @Test

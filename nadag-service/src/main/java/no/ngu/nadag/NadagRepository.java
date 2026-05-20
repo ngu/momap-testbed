@@ -1,4 +1,4 @@
-package imr.hi.nadag;
+package no.ngu.nadag;
 
 import imr.hi.mareano.database.Database;
 import java.sql.Connection;

@@ -1,15 +1,13 @@
-package imr.hi.nadag;
+package no.ngu.nadag;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import imr.hi.search.LocationSearchProvider;
 import java.util.HashMap;
 import java.util.List;
 import no.ngu.geojson.Geojson.Feature;
-import no.ngu.geojson.Geojson.FeatureCollection;
 import no.ngu.geojson.Geometry;
 
-public final class NadagService implements LocationSearchProvider {
+public final class NadagService {
 
   private final NadagRepository repository;
 
@@ -21,19 +19,7 @@ public final class NadagService implements LocationSearchProvider {
     return repository.byProsjektnavnOrProsjektnr(prosjektnavn, prosjektnr);
   }
 
-  private ObjectMapper objectMapper = new ObjectMapper();
-
-  @Override
-  public FeatureCollection search(String q) {
-    var nadagProjects = repository.byProsjektnavnOrProsjektnr(q, q);
-    var features = nadagProjects.stream()
-        .map(p -> toGeoJsonFeature(p))
-        .filter(f -> f != null)
-        .toList();
-    return new FeatureCollection("GeotekniskUnders", null, features);
-  }
-
-  private Feature toGeoJsonFeature(NadagProject project) {
+  public Feature toGeoJsonFeature(NadagProject project, ObjectMapper objectMapper) {
     try {
       if (project.omradeGeoJson() != null) {
         var geometry = objectMapper.readValue(project.omradeGeoJson(), Geometry.class);
@@ -44,7 +30,17 @@ public final class NadagService implements LocationSearchProvider {
         if (project.prosjektnavn() != null) {
           properties.put("prosjektnavn", project.prosjektnavn());
         }
-        LocationSearchProvider.titleOf(properties, "prosjektnr", "prosjektnavn");
+        String title = null;
+        if (properties.containsKey("prosjektnr")) {
+          title = properties.get("prosjektnr");
+        }
+        if (properties.containsKey("prosjektnavn")) {
+          title = (title != null) ? title + ", " : "";
+          title += properties.get("prosjektnavn");
+        }
+        if (title != null) {
+          properties.put("title", title);
+        }
         return new Feature(geometry.crs(), properties, geometry);
       }
     } catch (JsonProcessingException e) {
