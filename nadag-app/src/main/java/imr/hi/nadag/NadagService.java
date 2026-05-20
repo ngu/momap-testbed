@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import imr.hi.search.LocationSearchProvider;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 import no.ngu.geojson.Geojson.Feature;
 import no.ngu.geojson.Geojson.FeatureCollection;
 import no.ngu.geojson.Geometry;
