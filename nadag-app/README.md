@@ -33,7 +33,7 @@ a right menu button and panel for searching for geo-locations. Kartverket's sted
 
 ## Setup
 
-Make a folder for your map application and clone the
+Make a folder for your map application and clone (or download and upzip) the
 [mareano-api](https://git.imr.no/digital-utvikling/mareano/mareano-api) and
 [mareano-frontend](https://git.imr.no/digital-utvikling/mareano/mareano-frontend) repositories into it,
 as well as [this MoMap testbed](https://github.com/ngu/momap-testbed) repository.
