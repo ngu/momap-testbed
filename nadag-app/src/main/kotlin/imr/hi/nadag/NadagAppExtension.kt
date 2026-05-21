@@ -73,9 +73,7 @@ private class ApiRoutes(
     private val locationSearchService: LocationSearchService,
 ) : RouteContribution {
 
-    override fun routeContextPath(): String = "api"
-
-    override fun pathPrefixes(): List<String> = listOf("api/nadag")
+    override fun pathPrefixes(): List<String> = listOf("api/location-search")
 
     override fun install(
         route: Route,
