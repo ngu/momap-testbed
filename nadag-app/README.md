@@ -41,7 +41,7 @@ as well as [this MoMap testbed](https://github.com/ngu/momap-testbed) repository
 Install necessary languages and tools:
 
 - Java 21 and maven
-- npm and typescript compiler
+- pnpm and typescript compiler
 
 Export necessary variables, at least
 
@@ -49,6 +49,14 @@ Export necessary variables, at least
 - `VITE_AUTH_MODE`=local-mock
 - `VITE_ADMIN_ROLE`=Mareano.Admin
 - `VITE_BRAND`=ngu
+
+Trick: Put them in a `.env` file, and use the following command sequence:
+
+```sh
+set -a # turn auto-export on
+source .env # 'run' the .env file, i.e. set the variables, implicitly exporting them
+set +a # turn auto-export off
+```
 
 ## Build and run
 
