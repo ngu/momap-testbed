@@ -74,6 +74,30 @@ class FrontendScripts : FrontendContribution {
 
 Of course, this depends on how frontend code is packaged in the jar, and must be aligned with the extension's build.
 
+### Frontend code
+
+The extension's frontend code will be run in the context of the full MoMap frontend code, so must take care to use the hosts types and libraries, where is can. In particular, React must be provided by MoMap to ensure compatibility. Other libraries must be packaged with the extension.
+
+The frontend extension module will be loaded in a `<script>`element in `index.html` and must register its contributions by calling Window.registerFrontendExtension, e.g.
+
+```
+import type { FrontendExtension } from "@mareano-frontend/extensions/frontendExtensionsRegistry";
+
+const frontendExtension: FrontendExtension = (frontendApi) => [
+  createContribution(frontendApi)
+];
+
+(window as any).registerFrontendExtension(nadagFrontendExtension);
+```
+
+To reuse type definitions, so-called _path aliases_ can be defined to make importing types easier. The above import with `"@mareano-frontend/..."` is enabled with the following snippet in `tsconfig.json` (the path depends on your setup). Vite must have a similiar snippet in `vite.config.mjs`.
+
+```json
+    "paths": {
+      "@mareano-frontend/*": ["../../../mareano-frontend/src/*"]
+    }
+```
+
 ### Building the extension
 
 There are several issues the build must handle:
