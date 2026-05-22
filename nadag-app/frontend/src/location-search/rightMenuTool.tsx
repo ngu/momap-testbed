@@ -1,7 +1,7 @@
 import type {
 	FrontendContribution,
 	FrontendHostApi,
-} from "../../../../../mareano-frontend/src/extensions/frontendExtensionsRegistry";
+} from "@mareano-frontend/extensions/frontendExtensionsRegistry";
 import { LOCATION_SEARCH_ACTIVITY_ID, LOCATION_SEARCH_TOOL_ID } from "./geojson";
 
 const searchIconPath =
@@ -21,34 +21,28 @@ export function createLocationSearchRightMenuToolContribution({
 			return function LocationSearchToolButton() {
 				const { isActive: isOpen, toggle } = useRightMenuActivity(LOCATION_SEARCH_ACTIVITY_ID);
 
-				const icon = React.createElement(
-					"svg",
-					{
-						viewBox: "0 0 256 256",
-						width: "22",
-						height: "22",
-						"aria-hidden": "true",
-						fill: "currentColor",
-					},
-					React.createElement("path", {
-						d: searchIconPath,
-					}),
-				);
-
-				return React.createElement(
-					"button",
-					{
-						type: "button",
-						onClick: toggle,
-						title: "Location search",
-						"aria-label": isOpen ? "Close Location search" : "Open Location search",
-						"aria-expanded": isOpen,
-						className: [
+				return (
+					<button
+						type="button"
+						onClick={toggle}
+						title="Location search"
+						aria-label={isOpen ? "Close Location search" : "Open Location search"}
+						aria-expanded={isOpen}
+						className={[
 							"flex h-13 w-13 cursor-pointer items-center justify-center rounded-full border-none",
 							isOpen ? "bg-brand-link text-black" : "bg-brand-primary text-white",
-						].join(" "),
-					},
-					icon,
+						].join(" ")}
+					>
+						<svg
+							viewBox="0 0 256 256"
+							width="22"
+							height="22"
+							aria-hidden="true"
+							fill="currentColor"
+						>
+							<path d={searchIconPath} />
+						</svg>
+					</button>
 				);
 			};
 		},
