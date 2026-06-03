@@ -1,5 +1,4 @@
-export const LOCATION_SEARCH_TOOL_ID = "location-search.tool";
-export const LOCATION_SEARCH_ACTIVITY_ID = "location-search.activity";
+export const LOCATION_SEARCH_ID = "right-menu-location-search";
 
 import type {
 	GeoJsonFeature as MapGeoJsonFeature,

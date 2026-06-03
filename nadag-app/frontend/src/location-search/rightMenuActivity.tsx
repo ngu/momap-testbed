@@ -4,7 +4,7 @@ import type {
 } from "@mareano-frontend/extensions/frontendExtensionsRegistry";
 import { dispatchMapNavigateEvent } from "@mareano-frontend/extensions/mapNavigateEvent";
 import {
-	LOCATION_SEARCH_ACTIVITY_ID,
+	LOCATION_SEARCH_ID,
 	type GeoJsonFeature,
 	type GeoJsonFeatureCollection,
 } from "./geojson";
@@ -31,7 +31,7 @@ export function createLocationSearchRightMenuActivityContribution({
 	React,
 }: FrontendHostApi): FrontendContribution {
 	return {
-		id: LOCATION_SEARCH_ACTIVITY_ID,
+		id: LOCATION_SEARCH_ID,
 		purpose: "right-menu-activity",
 		meta: {
 			name: "Search",
