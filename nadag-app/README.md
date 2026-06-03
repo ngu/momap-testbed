@@ -63,7 +63,18 @@ set +a # turn auto-export off
 You may need to run `npm install` in the `mareano-frontend` folder once.
 
 Build the Mareano backend and frontend modules with extensibility turned on: in `mareano-api`, run `./gradlew publishExtensibleApp`
-This will package the frontend into the backend API jar and install it in the local maven repo, so it can be used as a dependency in an extension module.
+This will package the frontend into the backend API jar and install it in the local maven repo, so it can be used as a dependency in an extension module. If you need to share this combined frontend+backend artifact in a more central maven repo, you can use the following commands
+(the `cp` command is needed because mvn refuses to deploy directly from `.m2/repository/...`):
+
+```sh
+cp $HOME/.m2/repository/imr/hi/mareano-kartklient-api/0.0.1-SNAPSHOT/mareano-kartklient-api-0.0.1-SNAPSHOT.jar target
+mvn org.apache.maven.plugins:maven-deploy-plugin:3.1.4:deploy-file \
+  -Durl=https://maven.pkg.github.com/<github-owner>/<github-repo> \
+  -DrepositoryId=<github-server-id> \
+  -Dfile=target/mareano-kartklient-api-0.0.1-SNAPSHOT.jar \
+  -DpomFile=$HOME/.m2/repository/imr/hi/mareano-kartklient-api/0.0.1-SNAPSHOT/mareano-kartklient-api-0.0.1-SNAPSHOT.pom
+```
+
 As the `publishExtensibleApp` task depends in build tasks for both frontend and backend API,
 it is the only command needed if either MoMap frontend and API have changed.
 
