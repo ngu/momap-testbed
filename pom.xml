@@ -12,8 +12,7 @@
     <modules>
         <module>geojson</module>
         <module>kartverket-sok-adapter</module>
-        <module>nadag-service</module>
-        <module>nadag-app</module>
+        <module>sample-app</module>
     </modules>
 
     <properties>
