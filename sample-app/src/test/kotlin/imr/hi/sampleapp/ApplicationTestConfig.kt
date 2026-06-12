@@ -39,6 +39,7 @@ fun <R> withTestApplication(
 }
 
 fun createTestApplicationConfig() = AppConfig(
+    config = ConfigProvider.getConfig(),
     environment = "local",
     server = ServerConfig(allowedCorsHosts = emptyList()),
     databaseConfig = databaseConfig,

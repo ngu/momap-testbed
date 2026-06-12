@@ -28,7 +28,7 @@ function getFeatureTitle(feature: GeoJsonFeature, index: number): string {
 }
 
 export function createLocationSearchRightMenuActivityContribution({
-	React,
+	React, env,
 }: FrontendHostApi): FrontendContribution {
 	return {
 		id: LOCATION_SEARCH_ID,

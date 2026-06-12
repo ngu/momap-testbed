@@ -44,10 +44,12 @@ Install necessary languages and tools:
 
 Export necessary variables, at least
 
-- `VITE_API_BASE_URL`=http://localhost:8080
-- `VITE_AUTH_MODE`=local-mock
-- `VITE_ADMIN_ROLE`=Mareano.Admin
-- `VITE_BRAND`=ngu
+```sh
+export 'VITE_API_BASE_URL=http://localhost:8080'
+export VITE_AUTH_MODE=local-mock
+export VITE_ADMIN_ROLE=Mareano.Admin
+export VITE_BRAND=ngu
+```
 
 Trick: Put them in a `.env` file, and use the following command sequence:
 
