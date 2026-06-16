@@ -11,8 +11,8 @@ import io.ktor.http.HttpStatusCode
 private val jsonMapper = ObjectMapper().findAndRegisterModules()
 
 class LocationSearchRouteTest : FunSpec({
-    context("Nadag Search Route") {
-        test("search prosjekt=Gk00517 returns expected project row from search route")
+    context("Location Search Route") {
+        test("search=Stangvik returns a hit from location-search route")
             .config(enabled = true) {
             withTestApplication {
                 val response = client.get("api/location-search?q=Stangvik")

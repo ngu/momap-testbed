@@ -19,7 +19,7 @@
         <ktor.version>3.3.2</ktor.version>
         <kotest.version>6.0.4</kotest.version>
         <opentelemetry.version>1.59.0</opentelemetry.version>
-        <mareano.api.version>0.0.1</mareano.api.version>
+        <mareano.api.version>0.0.1-SNAPSHOT</mareano.api.version>
         <ktlint.maven.plugin.version>3.5.0</ktlint.maven.plugin.version>
     </properties>
 
