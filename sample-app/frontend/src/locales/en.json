@@ -1,0 +1,31 @@
+{
+  "location-search": {
+    "label": "Search",
+    "placeholder": "Search term",
+    "submit": "Search",
+    "searching": "Searching...",
+    "tool": {
+      "title": "Location search",
+      "openAria": "Open location search",
+      "closeAria": "Close location search"
+    },
+    "result": {
+      "navigating": "Navigating to selected location...",
+      "empty": "No results yet.",
+      "collectionFallback": "Feature collection {{number}}"
+    },
+    "error": {
+      "emptyQuery": "Enter a search term.",
+      "searchFailed": "Search failed ({{status}})",
+      "requestFailed": "Search request failed.",
+      "noGeometry": "Selected feature has no geometry.",
+      "navigationFailed": "Failed to navigate to selected location."
+    }
+  },
+  "provider": {
+    "kartverket": {
+      "stedsnavn": "Kartverket place names",
+      "adresser": "Kartverket addresses"
+    }
+  }
+}

@@ -33,10 +33,10 @@ public final class StedsnavnLocationServiceProvider implements LocationSearchPro
           .map(this::toFeature)
           .filter(feature -> feature != null)
           .toList();
-      return new FeatureCollection("Kartverket stedsnavn", null, features);
+      return new FeatureCollection("provider.kartverket.stedsnavn", null, features);
     } catch (Exception exception) {
       System.err.println("Kartverket location search failed: " + exception.getMessage());
-      return new FeatureCollection("Kartverket stedsnavn", null, List.of());
+      return new FeatureCollection("provider.kartverket.stedsnavn", null, List.of());
     }
   }
 

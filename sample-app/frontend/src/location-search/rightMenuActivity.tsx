@@ -28,16 +28,19 @@ function getFeatureTitle(feature: GeoJsonFeature, index: number): string {
 }
 
 export function createLocationSearchRightMenuActivityContribution({
-	React, env,
-}: FrontendHostApi): FrontendContribution {
+	React,
+	i18nSupport,
+}: FrontendHostApi, namespace: string): FrontendContribution {
 	return {
 		id: LOCATION_SEARCH_ID,
 		purpose: "right-menu-activity",
 		meta: {
-			name: "Search",
+			name: "Location search",
 		},
 		factory: () => {
 			return function LocationSearchActivity() {
+				const { t } = i18nSupport.useTranslation(namespace);
+
 				const [query, setQuery] = React.useState("");
 				const [isLoading, setIsLoading] = React.useState(false);
 				const [isSelecting, setIsSelecting] = React.useState(false);
@@ -49,7 +52,7 @@ export function createLocationSearchRightMenuActivityContribution({
 					const trimmed = query.trim();
 					if (!trimmed) {
 						setResults([]);
-						setError("Enter a search term.");
+						setError(t("location-search.error.emptyQuery"));
 						return;
 					}
 
@@ -69,14 +72,16 @@ export function createLocationSearchRightMenuActivityContribution({
 
 						if (!response.ok) {
 							const message = await response.text();
-							throw new Error(message || `Search failed (${response.status})`);
+							throw new Error(message || t("location-search.error.searchFailed", {
+								status: response.status,
+							}));
 						}
 
 						const data = (await response.json()) as GeoJsonFeatureCollection[];
 						setResults(data);
 					} catch (caught) {
 						const message =
-							caught instanceof Error ? caught.message : "Search request failed.";
+							caught instanceof Error ? caught.message : t("location-search.error.requestFailed");
 						setError(message);
 						setResults([]);
 					} finally {
@@ -90,7 +95,7 @@ export function createLocationSearchRightMenuActivityContribution({
 
 					try {
 						if (!feature.geometry) {
-							throw new Error("Selected feature has no geometry.");
+							throw new Error(t("location-search.error.noGeometry"));
 						}
 
 						dispatchMapNavigateEvent({
@@ -103,7 +108,7 @@ export function createLocationSearchRightMenuActivityContribution({
 						const message =
 							caught instanceof Error
 								? caught.message
-								: "Failed to zoom to selected feature.";
+								: t("location-search.error.navigationFailed");
 						setError(message);
 					} finally {
 						setIsSelecting(false);
@@ -113,12 +118,12 @@ export function createLocationSearchRightMenuActivityContribution({
 				return (
 					<div className="flex flex-col gap-4">
 						<form onSubmit={onSubmit} className="flex flex-col gap-2">
-							<label htmlFor="location-search-input">Search</label>
+							<label htmlFor="location-search-input">{t("location-search.label")}</label>
 							<input
 								id="location-search-input"
 								type="text"
 								value={query}
-								placeholder="Search term"
+								placeholder={t("location-search.placeholder")}
 								onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
 									setQuery(event.target.value)
 								}
@@ -129,12 +134,12 @@ export function createLocationSearchRightMenuActivityContribution({
 								disabled={isLoading || isSelecting}
 								className="rounded bg-brand-primary px-3 py-2 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-60"
 							>
-								{isLoading ? "Searching..." : "Search"}
+								{isLoading ? t("location-search.searching") : t("location-search.submit")}
 							</button>
 						</form>
 
 						{isSelecting ? (
-							<p className="text-sm text-neutral-700">Zooming to selected result...</p>
+							<p className="text-sm text-neutral-700">{t("location-search.result.navigating")}</p>
 						) : null}
 
 						{error ? (
@@ -145,7 +150,7 @@ export function createLocationSearchRightMenuActivityContribution({
 
 						<div className="flex flex-col gap-2">
 							{results.length === 0 && !isLoading && !error ? (
-								<p className="text-sm text-neutral-700">No results yet.</p>
+								<p className="text-sm text-neutral-700">{t("location-search.result.empty")}</p>
 							) : null}
 
 							{results.map((featureCollection, index) => (
@@ -154,7 +159,7 @@ export function createLocationSearchRightMenuActivityContribution({
 									className="flex flex-col gap-2 rounded border border-neutral-200 bg-white p-3"
 								>
 									<p className="text-sm font-semibold text-neutral-900">
-										{`${featureCollection.name || `Feature collection ${index + 1}`} (${featureCollection.features?.length ?? 0})`}
+										{`${featureCollection.name ? t(featureCollection.name, { defaultValue: featureCollection.name }) : t("location-search.result.collectionFallback", { number: index + 1 })} (${featureCollection.features?.length ?? 0})`}
 									</p>
 									<div className="flex flex-col gap-2">
 										{(featureCollection.features || []).map((feature, featureIndex) => (

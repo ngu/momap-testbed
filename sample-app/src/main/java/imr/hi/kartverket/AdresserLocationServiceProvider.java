@@ -29,10 +29,10 @@ public final class AdresserLocationServiceProvider implements LocationSearchProv
           .map(this::toFeature)
           .filter(feature -> feature != null)
           .toList();
-      return new FeatureCollection("Kartverket adresser", null, features);
+      return new FeatureCollection("provider.kartverket.adresser", null, features);
     } catch (Exception exception) {
       System.err.println("Kartverket location search failed: " + exception.getMessage());
-      return new FeatureCollection("Kartverket adresser", null, List.of());
+      return new FeatureCollection("provider.kartverket.adresser", null, List.of());
     }
   }
 

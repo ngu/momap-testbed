@@ -1,0 +1,31 @@
+{
+  "location-search": {
+    "label": "Søk",
+    "placeholder": "Søkeord",
+    "submit": "Søk",
+    "searching": "Søker...",
+    "tool": {
+      "title": "Stedssøk",
+      "openAria": "Åpne stedssøk",
+      "closeAria": "Lukk stedssøk"
+    },
+    "result": {
+      "navigating": "Navigerer til valgt sted...",
+      "empty": "Ingen resultater ennå.",
+      "collectionFallback": "Objektsamling {{number}}"
+    },
+    "error": {
+      "emptyQuery": "Skriv inn et søk.",
+      "searchFailed": "Søk feilet ({{status}})",
+      "requestFailed": "Søkeforespørsel feilet.",
+      "noGeometry": "Valgt objekt mangler geometri.",
+      "navigationFailed": "Kunne ikke navigere til valgt sted."
+    }
+  },
+  "provider": {
+    "kartverket": {
+      "stedsnavn": "Kartverket stedsnavn",
+      "adresser": "Kartverket adresser"
+    }
+  }
+}

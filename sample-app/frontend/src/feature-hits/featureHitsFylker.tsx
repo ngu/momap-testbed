@@ -60,10 +60,10 @@ export function createFeatureHitsFylkerTitleContribution({
 	return {
 		id: "feature-hits-fylker-title",
 		purpose: "feature-hit-title",
-		shouldRender: isFylkerLayer,
+		// shouldRender: isFylkerLayer,
 		factory: () => {
-			return function FeatureHitsFylkerTitle({ input }) {
-				const parsed = parseFeatureHitInput(input);
+			return function FeatureHitsFylkerTitle({ /* input */ }) {
+				const parsed = parseFeatureHitInput(undefined);
 				return parsed && (
 					<>
 						{parsed.navn_pri_1}
@@ -81,14 +81,11 @@ export function createFeatureHitsFylkerDetailsContribution({
 	return {
 		id: "feature-hits-fylker-details",
 		purpose: "feature-hit-details",
-		shouldRender: isFylkerLayer,
+		// shouldRender: isFylkerLayer,
 		factory: () => {
-			return function FeatureHitsFylkerDetails({ input }) {
-				const parsed = parseFeatureHitInput(input);
-				if (!parsed) {
-					return null;
-				}
-				return (
+			return function FeatureHitsFylkerDetails({ /* input */ }) {
+				const parsed = parseFeatureHitInput(undefined);
+				return parsed && (
 					<>
 						Fylke #{parsed.fylkesnummer}, er {parsed.samiskforvaltningsomrade ? "" : "ikke "}samisk forvaltningsområde. <br/>
 					</>

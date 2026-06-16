@@ -9,8 +9,9 @@ const searchIconPath =
 
 export function createLocationSearchRightMenuToolContribution({
 	React,
+	i18nSupport,
 	useRightMenuActivity,
-}: FrontendHostApi): FrontendContribution {
+}: FrontendHostApi, namespace: string): FrontendContribution {
 	return {
 		id: LOCATION_SEARCH_ID,
 		purpose: "right-menu-tool",
@@ -20,13 +21,14 @@ export function createLocationSearchRightMenuToolContribution({
 		factory: () => {
 			return function LocationSearchToolButton() {
 				const { isActive: isOpen, toggle } = useRightMenuActivity(LOCATION_SEARCH_ID);
+				const { t } = i18nSupport.useTranslation(namespace);
 
 				return (
 					<button
 						type="button"
 						onClick={toggle}
-						title="Location search"
-						aria-label={isOpen ? "Close Location search" : "Open Location search"}
+						title={t("location-search.tool.title")}
+						aria-label={isOpen ? t("location-search.tool.closeAria") : t("location-search.tool.openAria")}
 						aria-expanded={isOpen}
 						className={[
 							"flex h-13 w-13 cursor-pointer items-center justify-center rounded-full border-none",
