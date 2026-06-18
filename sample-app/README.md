@@ -1,6 +1,10 @@
 # Sample app
 
 Example extensions for MoMap backend API and frontend.
+Provides features for
+
+- location search based on address and place name using Kartverket service, with navigation (pan & zoom) to selected search result
+- custom presentation of hits in Fylker and Kommuner layers (must be added as layers)
 
 ## Extensible MoMap
 
