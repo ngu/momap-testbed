@@ -63,10 +63,10 @@ export function createFeatureHitKommunerLayerContribution({
 	return {
 		id: "feature-hit-kommuner-layer",
 		purpose: "feature-hit-layer",
-		// shouldRender: isKommunerLayer,
+		shouldRender: isKommunerLayer,
 		factory: () => {
-			return function FeatureHitsKommunerLayer({ /* input */ }) {
-				const parsed = parseFeatureHitInput(undefined);
+			return function FeatureHitsKommunerLayer({ input }) {
+				const parsed = parseFeatureHitInput(input);
 				return parsed && (
 					<>
             <p/>
